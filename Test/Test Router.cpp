@@ -8,8 +8,7 @@
 
 
 int main() {
-    std::fstream trip_file("DataBase/Trip.txt");
-    std::fstream seat_file("DataBase/Seat.txt");
+    std::fstream trip_file("../DataBase/Trip.txt");
 
 
     Vector<Vector<edge>> graph;
@@ -24,7 +23,6 @@ int main() {
     router::cli_from_to(cmd, Bucket, graph, start);
 
     trip_file.close();
-    seat_file.close();
 }
 
 
