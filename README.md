@@ -37,7 +37,7 @@ Cần tách phần giao diện (CLI) và phần xử lý logic tức là ta sẽ
 	- `trip` : Tìm ít số tuyến nhất (Sử dụng thuật toán **BFS**).
 	- `price` : Tìm hành trình rẻ nhất (Sử dụng thuật toán **Dijkstra**).
 	- `time` : Tìm hành trình nhanh nhất (Sử dụng thuật toán **Dijkstra**).
-	- `list <min> <max>` : Liệt kê mọi hành trình có số lượng lớn hơn min và nhỏ hơn max(Sử dụng thuật toán **DFS**).
+	- `DFS <max>` : Liệt kê mọi hành trình có số lượng lớn hơn min và nhỏ hơn max(Sử dụng thuật toán **DFS**).
 * **`pick`** : Chọn một chuyến đi cụ thể từ danh sách kết quả vừa tìm kiếm ở lệnh `from...to`. Ngay sau lệnh này, hệ thống sẽ tự động hiển thị sơ đồ ghế ngồi 2 chiều của chuyến đó.
 * **`book <row> <col>`** : Đặt vé tại vị trí hàng và cột ghế vừa chọn (chỉ sử dụng được sau khi đã `pick` chuyến). Nếu hết ghế, hệ thống tự động đưa khách vào `Queue`.
 * **`find <ticket>`** : Tra cứu thông tin chi tiết vé tức thì bằng **Bảng băm (Hash Table)**.
