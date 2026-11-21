@@ -8,7 +8,7 @@
 
 void print_DFS(Vector<Vector<edge>>& Bucket, size_t start) {
     for (size_t i = 0; i < Bucket.size(); i++) {
-        std::cout << start;
+        std::cout << i << "> " << start;
         for (size_t j = 0; j < Bucket[i].size(); j++) {
             std::cout << " -> " << Bucket[i][j].to;
         }
