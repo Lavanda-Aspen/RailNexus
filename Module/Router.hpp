@@ -4,7 +4,7 @@
 #include <string>
 #include "../Lib/SAC.hpp"
 #include "../Lib/DFS.hpp"
-
+#include "../Lib/BFS.hpp"
 
 
 
@@ -32,7 +32,7 @@ namespace router {
 
         start = station_A;
         DFS(type, station_A, station_B, Bucket, graph);
-        
+        BFS(type, station_A, station_B, Bucket, graph);
 
         
     }
