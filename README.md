@@ -54,22 +54,32 @@ Cần tách phần giao diện (CLI) và phần xử lý logic tức là ta sẽ
 ---
 
 ## 4. Chi Tiết Các tiêu chí Module  
+### data
+- [x] `init_data`
+	- [x] tạo dữ liệu cho file Trip.txt
+	- [x] tạo dữ liệu cho file Seat.txt
+	- [ ] tạo dữ liệu cho file Ticket.txt
+- [x] `load_graph`
+	-[x] Lấy dữ liệu từ file Trip.txt để biến thành đồ thị kề
+
+
 ### Router
 - `from <A> to <B> <type>`
 	- [x] DFS
-	- [ ] BFS
+	- [x] BFS
 	- [ ] Dijkstra
 
 ### SeatManager
-- `pick`
-- `book <row> <col>`
+- [x]`pick`
+- [ ]`book <row> <col>`
 	- [ ] Mảng 2 chiều
 	- [ ] Queue
 	- [ ] Priority Queue cho khách VIP ``
 
 ### TicketManager
-- `find <arg>`
-- `cancel <arg>`
+- [x]`hashmap`
+- [ ]`find <arg>`
+- [ ]`cancel <arg>`
 
 
 

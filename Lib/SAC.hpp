@@ -18,7 +18,6 @@ typedef struct {
 } Trip;
 
 typedef struct {
-    char newline = '\n';
     char trip_id[7];
     char rows[2];                           //2-9
     char cols[3];                           //05-40

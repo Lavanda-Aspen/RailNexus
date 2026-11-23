@@ -15,7 +15,7 @@ void init_seat_cells(std::fstream& seat_file, size_t rows, size_t cols) {
             seat_file.write("1", 1);
         }
     }
-    seat_file.write("\0", 1);
+    seat_file.write("\0\n", 2);
 }
 
 namespace data {
