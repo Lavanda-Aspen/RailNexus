@@ -13,7 +13,11 @@ RailNexus/
 ├── Lib/                  # Thư viện DSA
 │   ├── Vector.hpp                
 │   ├── DFS.hpp
-│   └── SAC.hpp           # ghi mọi struct & const vào file nầy       
+│   └── SAC.hpp           # ghi mọi struct & const vào file nầy     
+├── Report/    
+│   ├── main.tex          # Báo cáo chính  
+│   ├── Chapters/		  # Chứa các chương của báo cáo   
+│   └── Images/			  # Chứa ảnh cần dùng cho báo cáo
 ├── Module/    
 │   ├── Data.hpp          # Đọc dữ liệu từ DataBase   
 │   ├── Router.hpp        
