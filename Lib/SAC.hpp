@@ -30,3 +30,9 @@ typedef struct {
     size_t price;
     size_t trip_id;
 } edge;
+
+typedef struct {
+    char ticket_id[12];             // "VE" + trip_id + row + col + '\0'
+    char name[MAX_NAME_LENGTH];   
+    char newline = '\n';
+} Ticket;
