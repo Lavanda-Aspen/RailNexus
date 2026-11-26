@@ -2,7 +2,8 @@
 
 #include <fstream>
 #include <ctime>
-
+#include <cstring>
+#include <cstdio>
 #include "../Lib/SAC.hpp"
 #include "../Lib/Vector.hpp"
 
@@ -84,6 +85,48 @@ namespace data {
                 graph.push_back(temp);
             }
             
+        }
+    }
+
+    void init_ticket(std::fstream& seat_file, std::fstream& ticket_file, 
+        const char* names[], size_t total_names) {
+        if (total_names == 0) return;
+
+        seat_file.clear();
+        seat_file.seekg(0, std::ios::beg);
+        ticket_file.seekp(0, std::ios::beg);
+
+        Seat seat_data;
+        Ticket ticket_data;
+        size_t name_idx = 0;
+
+        while (seat_file.read(reinterpret_cast<char*>(&seat_data), sizeof(seat_data))) {
+            size_t rows = std::stoull(seat_data.rows);
+            size_t cols = std::stoull(seat_data.cols);
+            size_t total_seats = rows * cols;
+
+            for (size_t i = 0; i < total_seats; i++) {
+                char cell;
+                seat_file.read(&cell, 1);
+
+                if (cell == '1') {
+                    size_t r = (i / cols) + 1;
+                    size_t c = (i % cols) + 1;
+
+                    snprintf(ticket_data.ticket_id, sizeof(ticket_data.ticket_id),
+                            "VE%s%01zu%02zu", seat_data.trip_id, r, c);
+
+                    memset(ticket_data.name, 0, sizeof(ticket_data.name));
+                    snprintf(ticket_data.name, sizeof(ticket_data.name), "%s",
+                            names[name_idx % total_names]);
+                    name_idx++;
+
+                    ticket_file.write(reinterpret_cast<const char*>(&ticket_data), sizeof(ticket_data));
+                }
+            }
+
+            char ch;
+            while (seat_file.read(&ch, 1) && ch != '\n') {}
         }
     }
 
