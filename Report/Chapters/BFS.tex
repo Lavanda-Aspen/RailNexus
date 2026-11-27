@@ -1,6 +1,6 @@
 \chapter{Thuật toán BFS}
 \section{Lý do chọn thuật toán}
-BFS (Breadth-First Search) phục vụ tùy chọn \texttt{trip} của RailNexus: tìm hành trình có ít tuyến nhất. Khi mỗi cung được tính là một chặng, BFS sử dụng hàng đợi FIFO để duyệt các ga theo từng lớp khoảng cách từ ga xuất phát. Lần đầu phát hiện ga đích cho số chặng nhỏ nhất. Có thể lưu đỉnh và cung tiền nhiệm để truy vết hành trình. BFS không đảm bảo tối ưu tổng giá vé hoặc tổng thời gian khi trọng số khác nhau.
+BFS (Breadth-First Search) phục vụ lệnh \texttt{BFS} của RailNexus: tìm hành trình có ít tuyến nhất. Khi mỗi cung được tính là một chặng, BFS sử dụng hàng đợi FIFO để duyệt các ga theo từng lớp khoảng cách từ ga xuất phát. Lần đầu phát hiện ga đích cho số chặng nhỏ nhất. Có thể lưu đỉnh và cung tiền nhiệm để truy vết hành trình. BFS không đảm bảo tối ưu tổng giá vé hoặc tổng thời gian khi trọng số khác nhau.
 \section{Phân tích độ phức tạp}
 Với danh sách kề, nếu đánh dấu ngay khi đưa ga vào hàng đợi, mỗi ga được đưa vào tối đa một lần và mỗi cung được xét tối đa một lần. Thời gian trong trường hợp xấu nhất là $O(n+m)$; bộ nhớ phụ cho hàng đợi, đánh dấu và truy vết là $O(n)$, chưa tính đồ thị $O(n+m)$. Với đồ thị thưa và $m=4n$, thời gian tăng tuyến tính theo $n$.
 \section{So sánh số phép tính}
