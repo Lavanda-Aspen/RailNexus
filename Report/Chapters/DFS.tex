@@ -1,0 +1,17 @@
+\chapter{Thuật toán DFS}
+\section{Lý do chọn thuật toán}
+Trong RailNexus, DFS (Depth-First Search) được dùng để liệt kê các hành trình giữa hai ga theo giới hạn số chặng. Mỗi ga là một đỉnh, mỗi chuyến đi là một cung có hướng. DFS đi sâu theo một nhánh, lưu hành trình hiện tại rồi quay lui để thử các nhánh khác. Khi liệt kê đường đi đơn, cần đánh dấu ga trên đường đi hiện tại và bỏ đánh dấu khi quay lui để tránh chu trình mà không bỏ sót các hành trình khác. DFS không đảm bảo hành trình đầu tiên có giá thấp nhất hoặc ít chặng nhất.
+\section{Phân tích độ phức tạp}
+Đối với DFS duyệt đồ thị thông thường bằng danh sách kề, mỗi đỉnh và cung được xét tối đa một lần, nên thời gian là $O(n+m)$, bộ nhớ phụ $O(n)$. Tuy nhiên, bài toán liệt kê đường đi của RailNexus khác với duyệt thông thường: một ga có thể xuất hiện trong nhiều hành trình khác nhau. Với tối đa $L$ chặng và tối đa $b$ cung ra tại mỗi ga, số trạng thái tìm kiếm bị chặn bởi $1+b+\cdots+b^L$. Nếu sao chép từng đường đi khi xuất kết quả, chi phí còn phụ thuộc tổng độ dài các đường đi được xuất. Với quay lui và đánh dấu theo đường hiện tại, bộ nhớ phụ là $O(n+L)$, chưa tính kết quả lưu trữ. Không giới hạn độ dài, số đường đi đơn có thể tăng tới cấp giai thừa trên đồ thị đầy đủ.
+\section{So sánh số phép tính}
+Giả sử đồ thị có $n$ ga và $m=4n$ cung có hướng. Các số dưới đây là chỉ số khối lượng công việc theo mô hình lý thuyết, không phải số lệnh CPU hay kết quả đo thực nghiệm. Với DFS liệt kê, xét thêm mô hình cây tìm kiếm có hệ số phân nhánh tối đa $b=4$ và giới hạn $L$ chặng.
+\begin{center}
+\begin{tabular}{r|r|r}
+$n$ & $n+m$ & $(n+m)\log_2 n$ (xấp xỉ) \\\hline
+1.000 & 5.000 & 49.829 \\
+10.000 & 50.000 & 664.386 \\
+100.000 & 500.000 & 8.304.820 \\
+1.000.000 & 5.000.000 & 99.657.843 \\
+\end{tabular}
+\end{center}
+Cột $n+m$ chỉ áp dụng cho DFS duyệt thông thường, không đại diện cho DFS liệt kê. Với $b=4$, giới hạn $L=5,10,15$ cho số trạng thái tối đa tương ứng 1.365, 1.398.101 và 1.431.655.765. Do đó cần giới hạn số chặng để kiểm soát chi phí; số ga riêng lẻ không đủ để dự báo số hành trình.
