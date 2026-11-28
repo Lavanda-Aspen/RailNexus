@@ -1,0 +1,17 @@
+\chapter{Thuật toán DFS}
+\section{Lý do chọn thuật toán}
+Trong RailNexus, DFS (Depth-First Search) được dùng để liệt kê các hành trình giữa hai ga theo giới hạn số chặng. Mỗi ga là một đỉnh, mỗi chuyến đi là một cung có hướng. DFS đi sâu theo một nhánh, lưu hành trình hiện tại rồi quay lui để thử các nhánh khác. Khi liệt kê đường đi đơn, cần đánh dấu ga trên đường đi hiện tại và bỏ đánh dấu khi quay lui để tránh chu trình mà không bỏ sót các hành trình khác. Trong mã hiện tại, điều kiện dừng được kiểm tra trước khi xét ga đích, nên tham số giới hạn là cận trên nghiêm ngặt của số chặng; ga xuất phát cũng chưa được đánh dấu ban đầu. DFS không đảm bảo hành trình đầu tiên có giá thấp nhất hoặc ít chặng nhất.
+\section{Phân tích độ phức tạp}
+Đối với DFS duyệt đồ thị thông thường bằng danh sách kề, mỗi đỉnh và cung được xét tối đa một lần, nên thời gian là $O(n+m)$, bộ nhớ phụ $O(n)$. Tuy nhiên, bài toán liệt kê đường đi của RailNexus khác với duyệt thông thường: một ga có thể xuất hiện trong nhiều hành trình khác nhau. Với tối đa $L$ chặng và tối đa $b$ cung ra tại mỗi ga, số trạng thái tìm kiếm bị chặn bởi $1+b+\cdots+b^L$. Nếu sao chép từng đường đi khi xuất kết quả, chi phí còn phụ thuộc tổng độ dài các đường đi được xuất. Với quay lui và đánh dấu theo đường hiện tại, bộ nhớ phụ là $O(n+L)$, chưa tính kết quả lưu trữ. Không giới hạn độ dài, số đường đi đơn có thể tăng tới cấp giai thừa trên đồ thị đầy đủ.
+\section{So sánh số phép tính}
+Giả sử có $n$ ga, $m=4n$ cung. Bảng dưới đây dùng các chỉ số lý thuyết $n+m$ và $n^2+m$, không phải số lệnh CPU đo được. Với Dijkstra, $n^2$ là cận số lượt kiểm tra đỉnh trong hai vòng lặp, còn $m$ là cận số lượt xét cung. Bảng giả định tăng kích thước mảng theo $n$; chương trình hiện tại chỉ hỗ trợ 20 ga.
+\begin{center}
+\begin{tabular}{r|r|r}
+$n$ & $n+m$ & $n^2+m$ \\\hline
+1.000 & 5.000 & 1.004.000 \\
+10.000 & 50.000 & 100.040.000 \\
+100.000 & 500.000 & 10.000.400.000 \\
+1.000.000 & 5.000.000 & 1.000.004.000.000 \\
+\end{tabular}
+\end{center}
+Cột $n+m$ chỉ là DFS duyệt thông thường. Với DFS liệt kê, giả sử tối đa $b=4$ cung ra và độ sâu $L=5$, cây tìm kiếm có tối đa $1+4+\cdots+4^5=1365$ trạng thái cho mỗi giá trị $n$ trên, nếu giữ nguyên giới hạn. Khi $L=10$, cận tăng thành 1.398.101. Đây là cận trạng thái, chưa tính sao chép kết quả. Số ga và số cung trung bình không đủ để suy ra số hành trình thực tế.

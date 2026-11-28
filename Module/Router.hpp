@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <iostream>
@@ -5,14 +6,15 @@
 #include "../Lib/SAC.hpp"
 #include "../Lib/DFS.hpp"
 #include "../Lib/BFS.hpp"
-
-
-
-
-
+#include "../Lib/Dijkstra.hpp"
 
 namespace router {
-    void cli_from_to(const std::string cmd, Vector<Vector<edge>>& Bucket, Vector<Vector<edge>>& graph, size_t& start) {
+    void cli_from_to(
+        const std::string cmd,
+        Vector<Vector<edge>>& Bucket,
+        Vector<Vector<edge>>& graph,
+        size_t& start
+    ) {
         if (cmd != "from") return;
 
         size_t station_A;
@@ -25,15 +27,18 @@ namespace router {
         std::cin >> station_B;
         std::cin >> type;
 
-        if (station_A >= TOTAL_STATION || station_B >= TOTAL_STATION || cmd1 != "to") {
+        if (station_A >= TOTAL_STATION ||
+            station_B >= TOTAL_STATION ||
+            cmd1 != "to") {
+
             std::cout << "Invalid command\n";
             return;
         }
 
         start = station_A;
+
         DFS(type, station_A, station_B, Bucket, graph);
         BFS(type, station_A, station_B, Bucket, graph);
-
-        
+        Dijkstra(type, station_A, station_B, Bucket, graph);
     }
 }

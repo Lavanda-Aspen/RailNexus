@@ -1,0 +1,24 @@
+\chapter{Thuật toán Dijkstra}
+\section{Lý do chọn thuật toán}
+RailNexus mô hình hóa ga tàu thành đỉnh và chuyến tàu thành cung có hướng. Giá vé và thời gian di chuyển đều không âm. Dijkstra tìm hành trình có tổng trọng số nhỏ nhất, phù hợp với lệnh \texttt{price} và \texttt{time}. BFS chỉ tối ưu số chặng, còn DFS dùng để liệt kê hành trình. Với hệ thống hiện có 20 ga, lựa chọn Dijkstra bằng mảng giúp mã dễ đọc và không cần hàng đợi ưu tiên hay thư viện cấu trúc dữ liệu có sẵn.
+\section{Cách triển khai và giải thích}
+Mảng \texttt{dist} lưu chi phí tốt nhất đã tìm được; \texttt{reached} cho biết ga đã có đường đến hay chưa, nhờ đó không cần giá trị vô cực. Mảng \texttt{visited} đánh dấu ga đã xác định chi phí tối ưu. Ban đầu chỉ ga xuất phát được đánh dấu reached, chi phí bằng 0.
+
+Mỗi vòng lặp quét các ga chưa được chốt để chọn ga $u$ có chi phí nhỏ nhất. Nếu không có ga nào như vậy thì dừng. Do trọng số không âm, không thể tìm một đường ngắn hơn tới $u$ bằng cách đi qua một ga chưa chốt có chi phí lớn hơn hoặc bằng chi phí của $u$. Vì vậy có thể chốt $u$, và dừng nếu $u$ là ga đích.
+
+Với mỗi cung từ $u$ đến $v$, chọn trọng số $w$ là giá hoặc thời gian tùy câu lệnh. Nếu $v$ chưa được tiếp cận hoặc $dist[u]+w<dist[v]$, cập nhật chi phí, ga tiền nhiệm và cung tiền nhiệm. Với tối đa 20 ga và trọng số chuyến tàu theo dữ liệu hiện tại (tối đa 720 phút hoặc 950 nghìn đồng), tổng chi phí của đường đi đơn nằm trong phạm vi của kiểu \texttt{size\_t}. Mảng tiền nhiệm giúp truy ngược từ ga đích về ga đầu, sau đó đảo thứ tự để đưa hành trình vào \texttt{Bucket}. Hàm giao diện nhận tiêu chí và in đường đi; logic tìm đường nằm trong hàm riêng. Nếu ga đích không được chốt thì không có hành trình hợp lệ.
+
+\section{Phân tích độ phức tạp}
+Gọi $n$ là số ga và $m$ là số cung. Khởi tạo các mảng có kích thước tương ứng số ga. Vòng ngoài chạy tối đa $n$ lần, mỗi lần quét $n$ ga để tìm ga có chi phí nhỏ nhất, nên tốn $O(n^2)$. Mỗi ga được chốt tối đa một lần, tổng số cung được xét không vượt quá $m$. Truy vết và đảo hành trình tốn $O(n)$. Vì vậy thời gian xấu nhất là $O(n^2+m)$ và bộ nhớ phụ là $O(n)$, không tính đồ thị. Bản hiện tại cấp phát theo hằng TOTAL\_STATION; phân tích theo $n$ giả định mở rộng dung lượng tương ứng.
+\section{So sánh số phép tính}
+Giả sử có $n$ ga, $m=4n$ cung. Bảng dưới đây dùng các chỉ số lý thuyết $n+m$ và $n^2+m$, không phải số lệnh CPU đo được. Với Dijkstra, $n^2$ là cận số lượt kiểm tra đỉnh trong hai vòng lặp, còn $m$ là cận số lượt xét cung. Bảng giả định tăng kích thước mảng theo $n$; chương trình hiện tại chỉ hỗ trợ 20 ga.
+\begin{center}
+\begin{tabular}{r|r|r}
+$n$ & $n+m$ & $n^2+m$ \\\hline
+1.000 & 5.000 & 1.004.000 \\
+10.000 & 50.000 & 100.040.000 \\
+100.000 & 500.000 & 10.000.400.000 \\
+1.000.000 & 5.000.000 & 1.000.004.000.000 \\
+\end{tabular}
+\end{center}
+Dijkstra tương ứng cột $n^2+m$. Khi $n$ tăng 10 lần, thành phần $n^2$ tăng 100 lần. Với 20 ga, chỉ có tối đa 400 lượt kiểm tra đỉnh để chọn ga tiếp theo, nên cách làm bằng mảng phù hợp với quy mô hiện tại. Với đồ thị lớn hơn, có thể cân nhắc cấu trúc dữ liệu tối ưu hơn nếu yêu cầu dự án thay đổi.

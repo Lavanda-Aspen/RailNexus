@@ -1,0 +1,17 @@
+\chapter{Thuật toán BFS}
+\section{Lý do chọn thuật toán}
+BFS (Breadth-First Search) phục vụ lệnh \texttt{BFS} của RailNexus: tìm hành trình có ít chặng nhất. Khi mỗi cung được tính là một chặng, BFS sử dụng hàng đợi FIFO để duyệt các ga theo từng lớp khoảng cách từ ga xuất phát. Lần đầu phát hiện ga đích cho số chặng nhỏ nhất. Có thể lưu đỉnh và cung tiền nhiệm để truy vết hành trình. BFS không đảm bảo tối ưu tổng giá vé hoặc tổng thời gian khi trọng số khác nhau.
+\section{Phân tích độ phức tạp}
+Với danh sách kề, nếu đánh dấu ngay khi đưa ga vào hàng đợi, mỗi ga được đưa vào tối đa một lần và mỗi cung được xét tối đa một lần. Thời gian trong trường hợp xấu nhất là $O(n+m)$; bộ nhớ phụ cho hàng đợi, đánh dấu và truy vết là $O(n)$, chưa tính đồ thị $O(n+m)$. Với đồ thị thưa và $m=4n$, thời gian tăng tuyến tính theo $n$.
+\section{So sánh số phép tính}
+Giả sử có $n$ ga, $m=4n$ cung. Bảng dưới đây dùng các chỉ số lý thuyết $n+m$ và $n^2+m$, không phải số lệnh CPU đo được. Với Dijkstra, $n^2$ là cận số lượt kiểm tra đỉnh trong hai vòng lặp, còn $m$ là cận số lượt xét cung. Bảng giả định tăng kích thước mảng theo $n$; chương trình hiện tại chỉ hỗ trợ 20 ga.
+\begin{center}
+\begin{tabular}{r|r|r}
+$n$ & $n+m$ & $n^2+m$ \\\hline
+1.000 & 5.000 & 1.004.000 \\
+10.000 & 50.000 & 100.040.000 \\
+100.000 & 500.000 & 10.000.400.000 \\
+1.000.000 & 5.000.000 & 1.000.004.000.000 \\
+\end{tabular}
+\end{center}
+BFS tương ứng cột $n+m$. Khi số ga tăng 10 lần và mật độ cung trung bình giữ nguyên, chỉ số tăng 10 lần.
